@@ -37,7 +37,7 @@ The `dirb` tool was used to brute-force web directories with the command :
 dirb http://192.168.56.105 ~/Desktop/wordlist.txt -x.php,.html,.txt
 ```
 
-This scan successfully located the `index.html` file.
+* This scan successfully located the `index.html` file.
 
 The main webpage displayed the text "THE GAME BEGINS".
 * Navigating to `/hidden_text` revealed a maintenance page stating: `"Maintanance! Sorry For Delay, We Will Recover Soon. Thank You..."`.
@@ -117,7 +117,7 @@ sudo -l
 
 The output demonstrated that the user `robin` could run the script `/home/robin/project/feedback.sh` as the user `jerry` without a password (NOPASSWD).
 
-Use this command to let us execute as `Jerry` :
+Use this command to execute as `Jerry` :
 
 ```bash
 sudo -u jerry /home/robin/project/feedback.sh
@@ -153,7 +153,7 @@ The contents of the root directory were listed using the command:
 ls
 ```
 
-This reveals the `root.txt` file.
+* This reveals the `root.txt` file.
 
 The root flag file was read using the command:
 
