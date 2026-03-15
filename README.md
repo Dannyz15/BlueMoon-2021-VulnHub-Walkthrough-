@@ -30,17 +30,18 @@ nmap -sC -sV -Pn -vv 192.168.56.105
 * An open port ``80/tcp`` was found running the HTTP service with ``Apache httpd 2.4.38``.
 * Additionally, an open port ``21/tcp`` was discovered running the FTP service with ``vsftpd 3.0.3``.
 
+
 ## 3. Web Enumeration
-The `dirb` tool was used to brute-force web directories with the command :
+
+The `gobuster` tool was used to enumerate web directories using the following command:
 
 ```bash
-dirb http://192.168.56.105 ~/Desktop/wordlist.txt -x.php,.html,.txt
+gobuster dir -u http://192.168.56.105 --wordlist /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
 ```
 
-* This scan successfully located the `index.html` file.
-
-The main webpage displayed the text "THE GAME BEGINS".
-* Navigating to `/hidden_text` revealed a maintenance page stating: `"Maintanance! Sorry For Delay, We Will Recover Soon. Thank You..."`.
+* The scan successfully discovered the `/hidden_text` directory (Status: 200).
+* Navigating to the main webpage `http://192.168.56.105` displayed the text "THE GAME BEGINS".
+* Navigating to the discovered `/hidden_text` path revealed a maintenance page stating: `"Maintanance! Sorry For Delay, We Will Recover Soon. Thank You..."`.
 * After clicking on the ``Thank You`` text, the website provides a ``QR code``.
 * Scanning the ``QR code`` revealed a bash script containing FTP login credentials:
 
