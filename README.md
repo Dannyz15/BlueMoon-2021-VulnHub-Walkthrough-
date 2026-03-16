@@ -1,6 +1,12 @@
 # VulnHub Writeup: BlueMoon 2021
 
-**Machine Link:** [BlueMoon: 2021 on VulnHub](https://www.vulnhub.com/entry/bluemoon-2021,679/)
+## Target Information
+* **Hostname:** BlueMoon 
+* **Target IP:** 192.168.56.105 
+* **Operating System:** Debian GNU/Linux 10 
+* **Attacker IP:** 192.168.56.101 
+
+---
 
 ## 1. Network Discovery
 First, the attacker machine's IP address (Kali Linux) was checked using the command:
