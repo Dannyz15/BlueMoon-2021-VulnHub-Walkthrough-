@@ -34,25 +34,30 @@ nmap -sC -sV -Pn -vv 192.168.56.105
 * An open port ``80/tcp`` was found running the HTTP service with ``Apache httpd 2.4.38``.
 * Additionally, an open port ``21/tcp`` was discovered running the FTP service with ``vsftpd 3.0.3``.
 
-
 ## 3. Web Enumeration
 
-The `gobuster` tool was used to enumerate web directories using the following command:
+Both `dirb` and `gobuster` were used to thoroughly enumerate web directories and files on the target server.
+
+First, the `dirb` tool was used with the following command:
+
+```bash
+dirb http://192.168.56.105 ~/Desktop/wordlist.txt -X .php,.html,.txt
+```
+
+This scan successfully located the `index.html` file.
+
+Next, `gobuster` was used for additional directory enumeration using the following command:
 
 ```bash
 gobuster dir -u http://192.168.56.105 --wordlist /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
 ```
 
-* The scan successfully discovered the `/hidden_text` directory (Status: 200).
-* Navigating to the main webpage `http://192.168.56.105` displayed the text "THE GAME BEGINS".
-* Navigating to the discovered `/hidden_text` path revealed a maintenance page stating: `"Maintanance! Sorry For Delay, We Will Recover Soon. Thank You..."`.
-* After clicking on the ``Thank You`` text, the website provides a ``QR code``.
-* Scanning the ``QR code`` revealed a bash script containing FTP login credentials:
+This scan discovered the `/hidden_text` directory with a 200 OK status.
 
-```bash
-USER=userftp
-PASSWORD=ftpp@ssword
-```
+* Navigating to the main webpage `http://192.168.56.105/index.html` displayed the text "THE GAME BEGINS".
+* Navigating to the discovered `/hidden_text` path revealed a maintenance page stating: "Maintanance! Sorry For Delay, We Will Recover Soon. Thank You...".
+* After clicking the text on that page, the website provided a `QR code`.
+* Scanning the `QR code` revealed a bash script containing FTP login credentials: `USER=userftp` and `PASSWORD=ftpp@ssword`
 
 ## 4. FTP Enumeration
 A connection to the FTP server was initiated from the attacker terminal using the command :
@@ -166,8 +171,4 @@ The root flag file was read using the command:
 cat root.txt
 ```
 
-The final Root-Flag discovered was :
-
-```bash
-Fl4g{r00t-H4ckTh3P14n3t0nc34g41n}
-```
+The final Root-Flag discovered was : `Fl4g{r00t-H4ckTh3P14n3t0nc34g41n}`
