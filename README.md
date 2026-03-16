@@ -6,8 +6,6 @@
 * **Operating System:** Debian GNU/Linux 10 
 * **Attacker IP:** 192.168.56.101 
 
----
-
 ## 1. Network Discovery
 First, the attacker machine's IP address (Kali Linux) was checked using the command:
   
