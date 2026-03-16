@@ -1,4 +1,4 @@
-## VulnHub Writeup: BlueMoon 2021
+# VulnHub Writeup: BlueMoon 2021
 
 **Machine Link:** [BlueMoon: 2021 on VulnHub](https://www.vulnhub.com/entry/bluemoon-2021,679/)
 
