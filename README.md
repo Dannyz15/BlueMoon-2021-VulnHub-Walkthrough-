@@ -44,7 +44,7 @@ First, the `dirb` tool was used with the following command:
 dirb http://192.168.56.105 ~/Desktop/wordlist.txt -X .php,.html,.txt
 ```
 
-This scan successfully located the `index.html` file.
+* This scan successfully located the `index.html` file.
 
 Next, `gobuster` was used for additional directory enumeration using the following command:
 
